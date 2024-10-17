@@ -8,6 +8,7 @@ class Event(models.Model):
         Stores the event information
     """
     name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='images/events/', blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     date = models.DateTimeField()
     location = models.CharField(max_length=100)
@@ -27,7 +28,7 @@ class Pass(models.Model):
     """
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    qrcode = models.ImageField(upload_to='qrcodes/')
+    qrcode = models.ImageField(upload_to='images/qrcodes/')
     # qr_code = models.ImageField(upload_to='qr_codes/', blank=True, null=True)
     created_at = models.DateTimeField(default=timezone.now)
     status = models.CharField(max_length=10, choices=[('active', 'Active'), ('used', 'Used')], default='active')

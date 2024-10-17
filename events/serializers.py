@@ -11,21 +11,14 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password': {'write_only': True}  # Make password write-only
         }
-
-    def create(self, validated_data):
-        # Create and return a new `User` instance, given the validated data.
-        user = User.objects.create_user(
-            username=validated_data['username'],
-            password=validated_data['password']
-        )
-        return user
+        
     
 class EventSerializer(serializers.ModelSerializer):
     attendees = UserSerializer(many=True, read_only=True)
 
     class Meta:
         model = Event
-        fields = ['name', 'description', 'date', 'location', 'attendees', 'created_at', 'status']
+        fields = ['name', 'image', 'description', 'date', 'location', 'attendees', 'created_at', 'status']
         read_only_fields = ['attendees', 'created_at', 'status']
 
 
